@@ -19,7 +19,7 @@ A statically-compiled and ready to use version of Gum can be found in bin/gum wi
 
 ```
 shards
-crystal build src/gum.cr --release -o bin/gum
+make
 ```
 
 Finally, copy the resulting `bin/gum` to a location of choice, such as `/usr/local/bin`.
