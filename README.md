@@ -15,7 +15,7 @@ Obtain Gum:
 git clone https://github.com/crystallabs/gum
 ```
 
-A statically-compiled and ready to use version of Gum can be found in bin/gum within the repository. To compile it yourself, obtain the Crystal programming language from https://crystal-lang.org/docs/installation/, and then run:
+For convenience, statically-compiled and ready to use versions of Gum can be found in bin/gum.* within the repository. Please use the ones appropriate for your machine architecture. To compile Gum yourself, obtain the Crystal programming language from https://crystal-lang.org/docs/installation/, and then run:
 
 ```
 shards
