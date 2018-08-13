@@ -44,6 +44,7 @@ Then, simply run `gum` to see a report on the changes since the last run. Since 
 
 ```
 cd ~/gum/gum
+git checkout master
 touch test
 git add test
 git commit test -m "Test commit"
@@ -75,7 +76,7 @@ update_local: false
 show_remote_pulls: true
 show_local_pulls: false
 show_diffs: true
-write_config: true
+write_config: false
 ```
 
 With the meaning of options being as follows:

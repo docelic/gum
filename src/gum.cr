@@ -119,8 +119,11 @@ module Gum
 				# bs
 				bs.each do |b|
 					lb = @config.prefix + b 
-					diff = `git log -p #{lb}..#{b}`
-						puts "\n*** Repository: #{r}, branch: #{b}\n\n", diff
+					if @config.show_diffs
+						puts "\n*** Repository: #{r}, branch: #{b}\n\n"
+						diff = `git log -p #{lb}..#{b}`
+						puts diff
+					end
 				end
 				Dir.cd ".."
 			end
@@ -165,7 +168,12 @@ module Gum
 
 		def run
 			parse_options
-			write_config if @config.write_config
+
+			if @config.write_config
+				@config.write_config = false
+				write_config
+			end
+
 			ensure_branches
 			update_branches remote: true, local: false if @config.update_remote
 			show_diffs if @config.show_diffs
