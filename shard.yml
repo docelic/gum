@@ -1,0 +1,13 @@
+name: gum
+version: 0.1.0
+
+authors:
+  - Davor Ocelic <docelic@crystallabs.io>
+
+targets:
+  gum:
+    main: src/gum.cr
+
+crystal: 0.25.1
+
+license: MIT
