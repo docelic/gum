@@ -94,7 +94,7 @@ module Gum
 						#system "git", ["checkout", b]
 						#system "git", ["pull"]
 						`git checkout #{b} 2>&1 |grep -v "Already on"`
-						output = `git pull`
+						output = `git pull |grep -vP "Already up-to-date."`
 						puts output if @config.show_remote_pulls
 					end
 				end
@@ -103,7 +103,7 @@ module Gum
 						#system "git", ["checkout", b]
 						#system "git", ["pull"]
 						`git checkout #{b} 2>&1 |grep -v "Already on"`
-						output = `git pull`
+						output = `git pull |grep -vP "Already up-to-date."`
 						puts output if @config.show_local_pulls
 					end
 				end
@@ -120,7 +120,7 @@ module Gum
 				bs.each do |b|
 					lb = @config.prefix + b 
 					if @config.show_diffs
-						puts "\n*** Repository: #{r}, branch: #{b}\n\n"
+						puts "*** Repository: #{r}, branch: #{b}"
 						diff = `git log -p #{lb}..#{b}`
 						puts diff
 					end
