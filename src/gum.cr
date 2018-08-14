@@ -95,7 +95,7 @@ module Gum
 						#system "git", ["pull"]
 						`git checkout #{b} 2>&1 |grep -v "Already on"`
 						output = `git pull |grep -vP "Already up-to-date."`
-						puts output if @config.show_remote_pulls
+						puts output if output.size > 0 && @config.show_remote_pulls
 					end
 				end
 				if local
@@ -104,7 +104,7 @@ module Gum
 						#system "git", ["pull"]
 						`git checkout #{b} 2>&1 |grep -v "Already on"`
 						output = `git pull |grep -vP "Already up-to-date."`
-						puts output if @config.show_local_pulls
+						puts output if output.size > 0 && @config.show_local_pulls
 					end
 				end
 				Dir.cd ".."
