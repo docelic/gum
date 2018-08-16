@@ -19,10 +19,10 @@ For convenience, statically-compiled and ready to use versions of Gum can be fou
 
 ```
 shards
-make
+make release
 ```
 
-Finally, copy the resulting `bin/gum` to a location of choice, such as `/usr/local/bin`.
+Finally, copy the resulting `bin/gum.*` to a location of choice, such as `/usr/local/bin`.
 
 ## Usage
 
@@ -30,17 +30,18 @@ Finally, copy the resulting `bin/gum` to a location of choice, such as `/usr/loc
 gum -h
 ```
 
-Gum by default uses a config file found in `$HOME/.config/gum/gumrc` and watches all Git repositories in `$HOME/gum/`.
+Gum by default uses a config file found in `$HOME/.config/gum/gumrc` and watches the "master" branch of all Git repositories found in `$HOME/gum/`.
 
-To start monitoring repositories, simply clone some inside `$HOME/gum/` and check out the branch you want to monitor. For example:
+So, to start monitoring repositories, simply clone them inside `$HOME/gum/`. For example:
 
 ```
 cd ~/gum
 git clone https://github.com/crystallabs/gum
-git checkout master
 ```
 
-Then, simply run `gum` to see a report on the changes since the last run. Since there will be no changes on the first run, you could then do a test commit yourself and run Gum again:
+Then, simply run `gum` to see a report on the changes since the last run. To update the changes locally so that they would not appear again on the next invocation of `gum`, run `gum -l`.
+
+Since there will be no changes to any repositories when you first install and try Gum, you could then do a test commit yourself and run Gum again. Here's an example for doing it on our existing clone of Gum's repository itself that was demonstrated in the previous example.
 
 ```
 cd ~/gum/gum
@@ -50,6 +51,8 @@ git add test
 git commit test -m "Test commit"
 gum
 ```
+
+(Then just make sure to delete this whole repository and start clean, because you do not want these test commits remaining in there.)
 
 To run gum once a day, you would typically add a cron entry such as:
 
@@ -65,9 +68,7 @@ When Gum is started, if a config file does not exist, it is automatically create
 
 ```
 basedir: /home/user/gum
-repositories:
-  gum:
-  - master
+repositories: {}
 prefix: gum_local-
 logfile: STDOUT
 loglevel: debug
@@ -82,7 +83,7 @@ write_config: false
 With the meaning of options being as follows:
 
 * basedir: Base directory with cloned repositories. All repositories must be cloned under this directory with no intermediate subdirectories. The directory names are unrelated to the locations they are cloned from, so you can easily avoid any unlikely naming conflicts by cloning to different directory names or mv-ing directories to different names.
-* repositories: Contains a list of repositories and branches to monitor. If this list is empty, all repositories found in `basedir` are monitored on their `master` branch.
+* repositories: Contains a list of repositories and their branches to monitor. If this list is empty, all repositories found in `basedir` are monitored on their `master` branch.
 * prefix: Gum implements showing diffs on the basis of comparing two branches. For every branch tracked, a "local" branch is created, named "$prefix$branch_name". With prefix "gum_local-", branches named "master" would be tracked in local branches named "gum_local-master".
 * logfile: Logging-related option. File names STDOUT and STDERR refer to existing filehandles, while any other value is taken as file name.
 * loglevel: Logging-related option. Log level (severity) should be one of: debug, info, warn, error, fatal, unknown.
